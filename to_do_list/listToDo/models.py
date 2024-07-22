@@ -1,9 +1,9 @@
 from django.db import models
 
 class user(models.Model):
-    username = models.CharField(max_length=50)
-    email = models.CharField(max_length=150)
-    hash_password_email = models.CharField(max_length=150)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.CharField(max_length=150, unique=True)
+    hash_password_email = models.CharField(max_length=150, unique=True)
 
 class type_task(models.Model):
     type = models.CharField(max_length=50)
