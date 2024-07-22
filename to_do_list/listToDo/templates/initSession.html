@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Example Page</title>
-</head>
-<body>
-    <h1>Hello, this is an example page!</h1>
-</body>
-</html>
+{% extends "layouts/layout_reg_log.html" %} {% block head %}<title>log</title>{% endblock %} 
+{% block form %}
+<form action="/login" method="post">
+  <input type="text" name="username" placeholder="username" />
+  <input type="password" name="password" placeholder="password" />
+  <input type="submit" value="login" />
+</form>
+<p>Don't have an account? <a href="/register">Register</a></p>
+{% endblock %}
