@@ -1,24 +1,31 @@
 {% extends 'layouts/layout_reg_log.html' %} {% load static %} {% block head %}
 <title>Register</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
-{% endblock head %} {% block form %}
 
-<form action="/register" method="post">
+{% endblock head %} {% block form %}
+<form
+  id="form_register"
+  onsubmit="submit_register(event)"
+  method="post"
+  action="/users/register"
+>
+  {% csrf_token %}
   <h3>Register</h3>
-  <label>Username</label>
+  <label id="user_label">Username</label>
   <input type="text" name="username" placeholder="Example: User1" />
-  <label>Email</label>
+  <label id="email_label">Email</label>
   <input type="email" name="email" placeholder="Example: user1@gmail.com" />
-  <label>Password</label>
+  <label id="password_label">Password</label>
   <input type="password" name="password" placeholder="Example: user1Password" />
-  <label>Confirm Password</label>
+  <label id="password2_label">Confirm Password</label>
   <input
     type="password"
     name="confirm_password"
     placeholder="Exaple: user1Password"
   />
-  <input type="submit" value="Login" />
+  <input type="submit" value="Register" />
   <p>I have an account! <a href="/users/login" class="link">Login</a></p>
 </form>
+<script src="{% static 'scripts/register.js' %}"></script>
 
 {% endblock %}

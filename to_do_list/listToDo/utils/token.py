@@ -20,3 +20,13 @@ def generateJWT(username:str, email:str, hashPassword)->str:
         'exp': datetime.now() + timedelta(weeks=4)
     }
     return jwt.encode(payload, str(dotenv_values(".env.SECRET")), algorithm='HS256')
+
+def decodeJWT(token:str)->dict:
+    try:
+        return jwt.decode(token, str(dotenv_values(".env.SECRET")), algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        return {"error": "Token expired"}
+    except jwt.InvalidTokenError:
+        return {"error": "Invalid token"}
+    except Exception as e:
+        return {"error": str(e)}
