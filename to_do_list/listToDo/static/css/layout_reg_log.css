@@ -25,6 +25,7 @@ a {
 div.container {
   display: flex;
   width: 800px;
+  margin: 16px;
   border-radius: 16px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -35,6 +36,11 @@ div.decorador {
   display: flex;
   background: #d55852;
   flex: 1;
+}
+
+.link {
+  color: #d55852;
+  text-decoration: none;
 }
 
 form {
@@ -48,6 +54,7 @@ form {
   box-sizing: border-box;
   justify-content: center;
 }
+
 
 form label {
   color: white;
@@ -82,4 +89,13 @@ form h3 {
 form p {
   color: white;
   font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+  div.decorador {
+      flex: 0;
+  }
+  div.container{
+    margin: 16px;
+  }
 }
