@@ -1,15 +1,18 @@
-{% extends "layouts/layout_reg_log.html" %}
-{% load static %}
-{% block head %}
-  <title>Login</title> <link rel="stylesheet" type="text/css" href="{% static 'css/initSession.css' %}" />
-{% endblock head %}
-{% block form %}
+{% extends "layouts/layout_reg_log.html" %} {% load static %} {% block head %}
+<title>Login</title>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/initSession.css' %}"
+/>
+{% endblock head %} {% block form %}
 <form action="/login" method="post">
+  <h3>Login</h3>
   <label>Username</label>
   <input type="text" name="username" placeholder="Username" />
   <label>Password</label>
   <input type="password" name="password" placeholder="Password" />
   <input type="submit" value="Login" />
+  <p>Don't have an account? <a href="/users/register">Register</a></p>
 </form>
-<p>Don't have an account? <a href="/users/register">Register</a></p>
 {% endblock %}

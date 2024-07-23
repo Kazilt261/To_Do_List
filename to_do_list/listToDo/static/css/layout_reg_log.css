@@ -1,0 +1,85 @@
+body {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: #ebeae0;
+  box-sizing: content-box;
+}
+
+p,
+input::placeholder,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+a {
+  font-family: "Ubuntu", sans-serif;
+}
+
+div.container {
+  display: flex;
+  width: 800px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 500px;
+}
+
+div.decorador {
+  display: flex;
+  background: #d55852;
+  flex: 1;
+}
+
+form {
+  background-color: #10243d;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+form label {
+  color: white;
+  font-size: 16px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: gray 1px solid;
+}
+
+form input[type="submit"] {
+  display: block;
+  background-color: #d55852;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+form h3 {
+  color: white;
+  font-size: 20px;
+}
+
+form p {
+  color: white;
+  font-size: 12px;
+}

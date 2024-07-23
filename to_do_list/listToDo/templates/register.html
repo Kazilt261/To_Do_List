@@ -1,22 +1,24 @@
-{% extends 'layouts/layout_reg_log.html' %}
-{% load static %}
-{% block head %}
-  <title>Register</title> <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
-{% endblock head %}
-{% block form %}
+{% extends 'layouts/layout_reg_log.html' %} {% load static %} {% block head %}
+<title>Register</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
+{% endblock head %} {% block form %}
+
+<form action="/register" method="post">
   <h3>Register</h3>
-  <form action="/login" method="post">
-    <label>Username</label>
-    <input type="text" name="username" placeholder="Example: User1" />
-    <label>Email</label>
-    <input type="email" name="email" placeholder="Example: user1@gmail.com" />
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Example: user1Password" />
-    <label>Confirm Password</label>
-    <input type="password" name="confirm_password" placeholder="Exaple: user1Password" />
-    <input type="submit" value="Login" />
-  </form>
-  <p>
-    Don't have an account? <a href="/register">Register</a>
-  </p>
+  <label>Username</label>
+  <input type="text" name="username" placeholder="Example: User1" />
+  <label>Email</label>
+  <input type="email" name="email" placeholder="Example: user1@gmail.com" />
+  <label>Password</label>
+  <input type="password" name="password" placeholder="Example: user1Password" />
+  <label>Confirm Password</label>
+  <input
+    type="password"
+    name="confirm_password"
+    placeholder="Exaple: user1Password"
+  />
+  <input type="submit" value="Login" />
+  <p>Don't have an account? <a href="/users/login">Register</a></p>
+</form>
+
 {% endblock %}
