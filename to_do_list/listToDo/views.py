@@ -80,11 +80,15 @@ def index(request):
             request.session['token'] = None
             return redirect('/users/login')
         user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response = redirect('/users/login')
+            response.delete_cookie('token')
+            return response
         
         return render(request, 'index.html',{'username': user.username, 'email': user.email})
     
 def test(request):
-    acount = User.objects.filter(username="seigen").first()
+    acount = User.objects.filter().first()
     response = redirect('/')
     response.set_cookie('token', generateJWT(acount.username, acount.email, acount.hash_password_email))
     return response
