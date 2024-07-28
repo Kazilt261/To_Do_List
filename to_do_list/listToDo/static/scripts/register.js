@@ -39,6 +39,7 @@ function submit_register(event) {
         } else {
           response.json().then((data) => {
             if (data.error === "username") {
+              alert(data.details)
               document.getElementById("user_label").classList.add("error");
             } else if (data.error === "email") {
               document.getElementById("email_label").classList.add("error");
