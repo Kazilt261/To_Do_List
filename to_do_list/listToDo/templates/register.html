@@ -1,6 +1,5 @@
 {% extends 'layouts/layout_reg_log.html' %} {% load static %} {% block head %}
 <title>Register</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
 
 {% endblock head %} {% block form %}
 <form
@@ -11,13 +10,28 @@
 >
   {% csrf_token %}
   <h3>Register</h3>
-  <label id="user_label">Username</label>
-  <input type="text" name="username" placeholder="Example: User1" />
-  <label id="email_label">Email</label>
-  <input type="email" name="email" placeholder="Example: user1@gmail.com" />
-  <label id="password_label">Password</label>
-  <input type="password" name="password" placeholder="Example: user1Password" />
-  <label id="password2_label">Confirm Password</label>
+  <label id="user">Username</label>
+  <input
+    id="user_input"
+    type="text"
+    name="username"
+    placeholder="Example: User1"
+  />
+  <label id="email">Email</label>
+  <input
+    id="email_input"
+    type="email"
+    name="email"
+    placeholder="Example: user1@gmail.com"
+  />
+  <label id="password">Password</label>
+  <input
+    id="password_input"
+    type="password"
+    name="password"
+    placeholder="Example: user1Password"
+  />
+  <label id="password2">Confirm Password</label>
   <input
     type="password"
     name="confirm_password"
@@ -25,7 +39,8 @@
   />
   <input type="submit" value="Register" />
   <p>I have an account! <a href="/users/login" class="link">Login</a></p>
+  <div id="error-div"></div>
 </form>
-<script src="{% static 'scripts/register.js' %}"></script>
+<script src="{% static 'scripts/register.jsx' %}"></script>
 
 {% endblock %}

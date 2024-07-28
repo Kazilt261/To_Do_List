@@ -70,7 +70,13 @@ form input[type="email"] {
   padding: 10px;
   width: 100%;
   border-radius: 5px;
-  border: gray 1px solid;
+  border: gray 0px solid;
+}
+
+form input[type="text"].error,
+form input[type="password"].error,
+form input[type="email"].error{
+  border: #d55852 2px solid;
 }
 
 form input[type="submit"] {
@@ -90,6 +96,11 @@ form h3 {
 
 form p {
   color: white;
+  font-size: 12px;
+}
+
+#error-div p{
+  color: #d55852;
   font-size: 12px;
 }
 

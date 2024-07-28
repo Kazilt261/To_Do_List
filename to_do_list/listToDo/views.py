@@ -17,7 +17,17 @@ def index(request):
 @csrf_exempt #Esto es solo para testear, se recomienda quitarlo en producción
 def login(request):
     if request.method == "GET":
-        return render(request, 'initSession.html')
+        if request.COOKIES.get('token') == None:
+            return render(request, 'initSession.html')
+        dataUser = decodeJWT(request.COOKIES.get('token'))
+        if dataUser == None:
+            return render(request, 'initSession.html')
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response = redirect('/users/login')
+            response.delete_cookie('token')
+            return response
+        return redirect('/')
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -34,7 +44,17 @@ def login(request):
 @csrf_exempt #Esto es solo para testear, se recomienda quitarlo en producción
 def register(request):
     if request.method == "GET":
-        return render(request, 'register.html')
+        if request.COOKIES.get('token') == None:
+            return render(request, 'register.html')
+        dataUser = decodeJWT(request.COOKIES.get('token'))
+        if dataUser == None:
+            return render(request, 'register.html')
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response = redirect('/users/register')
+            response.delete_cookie('token')
+            return response
+        return redirect('/')
     if request.method == "POST":
         name = request.POST.get('username')
         email = request.POST.get('email')
