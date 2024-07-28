@@ -6,7 +6,8 @@ from urllib import response
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
-from .utils.token import generateJWT, decodeJWT
+from utils.token import generateJWT, decodeJWT
+import utils.validator as validator
 from listToDo.models import user as User
 import hashlib
 
@@ -38,6 +39,17 @@ def register(request):
         name = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+
+        if name == None or email == None or password == None:
+            return JsonResponse({"message": "Invalid data"},status=400)
+
+        if validator.validateEmail(email) == False:
+            return JsonResponse({"error": "email", "details":"Invalid email"},status=400)
+        if validator.validateUserName(name) != "":
+            return JsonResponse({"error": "username", "details":validator.validateUserName(name)},status=400)
+        if validator.validatePassword(password) != "":
+            return JsonResponse({"error": "password", "details":validator.validatePassword(password)},status=400)   
+
         hash_object = hashlib.sha256((password+email).encode())
         hex_dig = hash_object.hexdigest()
         user = User(username=name, email=email, hash_password_email=hex_dig)
@@ -86,9 +98,3 @@ def index(request):
             return response
         
         return render(request, 'index.html',{'username': user.username, 'email': user.email})
-    
-def test(request):
-    acount = User.objects.filter().first()
-    response = redirect('/')
-    response.set_cookie('token', generateJWT(acount.username, acount.email, acount.hash_password_email))
-    return response
