@@ -8,4 +8,6 @@ urlpatterns = [
     path("users/register", views.register, name="register"),
     path("users/login", views.login, name="login"),
     path("users/logout", views.logout, name="logout"),
+    path("task/create",views.createTask, name="Create"),
+    path("task/delete",views.deleteTask, name="Delete"),
 ]

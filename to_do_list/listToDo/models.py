@@ -12,5 +12,6 @@ class task(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     end_date = models.DateField()
-    type = models.ForeignKey(type_task, on_delete=models.CASCADE)
+    type = models.CharField(max_length=50)
     user = models.ForeignKey(user, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)

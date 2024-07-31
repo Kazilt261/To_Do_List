@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from utils.token import generateJWT, decodeJWT
 import utils.validator as validator
 from listToDo.models import user as User
+from listToDo.models import task as Task
 import hashlib
 
 def index(request):
@@ -90,14 +91,82 @@ def logout(request):
     response.delete_cookie('token')
     return response
 
+@csrf_exempt 
 def createTask(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    if request.method == "POST":
+        name=request.POST.get("taskName")
+        description=request.POST.get("taskDescription")
+        time=request.POST.get("taskLimitTime")
+        type=request.POST.get("taskType")
+        token = request.COOKIES.get('token')
+        if name==None or description==None or time==None:
+            return JsonResponse({"message": "Invalid data"},status=400)
+        if token == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        newTask=Task(title=name, description=description, end_date=time, user=user, type=type)
+        try:
+            newTask.save()
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": "A"},status=500)
+        return JsonResponse({},status=201)
 
 def updateTask(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
+@csrf_exempt 
 def deleteTask(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    if request.method == "GET":
+        if request.COOKIES.get('token') == None:
+            return render(request, 'initSession.html')
+        dataTask = decodeJWT(request.COOKIES.get('token'))
+        if dataTask == None:
+            return render(request, 'initSession.html')
+        task = Task.objects.filter(id=dataTask['id']).first()
+        if task == None:
+            response = redirect('/task')
+            response.delete_cookie('token')
+            return response
+        return redirect('/')
+    if request.method == "POST":
+        id=request.POST.get("taskId")
+        token = request.COOKIES.get('token')
+        if id==None:
+            return JsonResponse({"message": "Invalid data"},status=400)
+        if token == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        dataTask = decodeJWT(token)
+        if "error" in dataTask:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        task = Task.objects.filter(task=dataTask['task']).first()
+        task.delete()
+        if task == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        newTask=Task(id=id)
+        try:
+            newTask.save()
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": "A"},status=500)
+        return JsonResponse({},status=201)
 
 def listTasks(request):
     return HttpResponse("Hello, world. You're at the polls index.")
