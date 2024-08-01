@@ -206,8 +206,29 @@ def deleteTask(request, id):
             return JsonResponse({"error": "A"},status=500)
         return JsonResponse({},status=201)
 
-def listTasks(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def listTask(request):
+    if request.method == "GET":
+        token = request.COOKIES.get('token')
+        if token == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        tasks = Task.objects.filter(user=user)
+        tasksList = []
+        for task in tasks:
+            tasksList.append({"id":task.id, "title":task.title, "description":task.description, "end_date":task.end_date, "type":task.type, "status":task.status})
+        return JsonResponse({"tasks":tasksList},status=200)
+    return 
 
 def index(request):
     if request.method == "GET":

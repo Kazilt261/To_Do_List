@@ -1,7 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
-  <head> </head>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/index.css' %}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  </head>
   <body>
-    <div><h1>{{ username }}</h1></div>
+    <navbar>
+      <h2>ToDo List</h2>
+      <button class="elevate-button" onclick="addTask()">Add Task</button>
+      <input type="text" id="filter-tasks" placeholder="Task"></input>
+      <div class="colum-tasks" id="colum-tasks">
+        <---! Tasks will be displayed here -->
+      </div>
+      <section id="user">
+        <div class="user-info">
+          <p id="username">{{username}}</p>
+          <p id="email">{{email}}</p>
+        </div>
+      </section>
+    </navbar>
+    <div id="root"></div>
   </body>
+  <script src="{% static 'scripts/to_list.js' %}"></script>
 </html>

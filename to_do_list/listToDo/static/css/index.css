@@ -1,0 +1,88 @@
+p,
+input::placeholder,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+button,
+a {
+  font-family: "Ubuntu", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+navbar {
+  gap: 10px;
+  padding: 6px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100vh;
+  align-items: center;
+  background-color: #10243d;
+  color: white;
+}
+
+button.elevate-button {
+  width: 100%;
+  background-color: #d55852;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+navbar .colum-tasks {
+  background-color: #10243d;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+navbar .colum-tasks::-webkit-scrollbar {
+  width: 15px;
+}
+
+navbar section#user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+navbar section#user #username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+navbar section#user #email {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+navbar .block-task {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+navbar .block-task h4 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+navbar .block-task p {
+  font-size: 14px;
+  font-weight: lighter;
+}
