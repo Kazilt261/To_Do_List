@@ -9,5 +9,6 @@ urlpatterns = [
     path("users/login", views.login, name="login"),
     path("users/logout", views.logout, name="logout"),
     path("task/create",views.createTask, name="Create"),
-    path("task/delete",views.deleteTask, name="Delete"),
+    path("task/delete/<int:id>",views.deleteTask, name="Delete"),
+    path("task/update/<int:id>",views.updateTask, name="Update"),
 ]

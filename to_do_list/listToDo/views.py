@@ -122,47 +122,85 @@ def createTask(request):
             print(e)
             return JsonResponse({"error": "A"},status=500)
         return JsonResponse({},status=201)
-
-def updateTask(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
+    
 @csrf_exempt 
-def deleteTask(request):
-    if request.method == "GET":
-        if request.COOKIES.get('token') == None:
-            return render(request, 'initSession.html')
-        dataTask = decodeJWT(request.COOKIES.get('token'))
-        if dataTask == None:
-            return render(request, 'initSession.html')
-        task = Task.objects.filter(id=dataTask['id']).first()
-        if task == None:
-            response = redirect('/task')
-            response.delete_cookie('token')
-            return response
-        return redirect('/')
-    if request.method == "POST":
-        id=request.POST.get("taskId")
+def updateTask(request, id):
+    if request.method == "PATCH":
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponse("Invalid JSON")
+        name = data['taskName']
+        description=data["taskDescription"]
+        time=data["taskLimitTime"]
+        type=data["taskType"]
+        oldTaskId=id
         token = request.COOKIES.get('token')
-        if id==None:
+        if token == None:
+            response=HttpResponse()
+            response.status_code=400
+            return response
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        oldTask = Task.objects.filter(id=oldTaskId).first()
+        if oldTaskId == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        if oldTask.user!=user:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        try:
+            oldTask.title = name
+            oldTask.description=description
+            oldTask.end_date=time
+            oldTask.type=type
+            oldTask.save()
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": "A"},status=500)
+        return JsonResponse({},status=201)
+@csrf_exempt 
+def deleteTask(request, id):
+    if request.method == "DELETE":
+        idTask=id
+        token = request.COOKIES.get('token')
+        if idTask==None:
             return JsonResponse({"message": "Invalid data"},status=400)
         if token == None:
             response=HttpResponse()
-            response.status_code=401
+            response.status_code=400
             return response
-        dataTask = decodeJWT(token)
-        if "error" in dataTask:
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
             response=HttpResponse()
             response.status_code=401
             return response
-        task = Task.objects.filter(task=dataTask['task']).first()
-        task.delete()
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        task = Task.objects.filter(id=idTask).first()
         if task == None:
             response=HttpResponse()
+            response.status_code=404
+            return response
+        if task.user!=user:
+            response=HttpResponse()
             response.status_code=401
             return response
-        newTask=Task(id=id)
         try:
-            newTask.save()
+            task.delete()
         except Exception as e:
             print(e)
             return JsonResponse({"error": "A"},status=500)
