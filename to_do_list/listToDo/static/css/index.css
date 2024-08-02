@@ -69,6 +69,21 @@ navbar .colum-tasks::-webkit-scrollbar {
   width: 15px;
 }
 
+div.user{
+  height: 50px;
+  width: 100%;
+  display:flex;
+  align-items: center;
+  padding: 8px;
+  background-color: black;
+  color: white;
+  border-radius: 30px;
+}
+
+.user-icon{
+  padding: 15px;
+}
+
 navbar section#user {
   display: flex;
   flex-direction: column;
