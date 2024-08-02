@@ -1,5 +1,6 @@
 const listTasks = document.getElementById("colum-tasks");
 const inputFilter = document.getElementById("filter-tasks");
+const divInput = document.getElementById("div-input-search")
 
 var filter = "";
 var tasks = null;
@@ -21,7 +22,9 @@ function addTask() {
 
 function init() {
   inputFilter.addEventListener("input", filterTasks);
-
+  divInput.addEventListener("click", ()=>{
+    inputFilter.focus()
+  })
   chargeTasks().then(() => {
     setTimeout(() => {
       generateList();
