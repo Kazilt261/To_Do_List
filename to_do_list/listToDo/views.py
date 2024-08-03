@@ -121,7 +121,7 @@ def createTask(request):
         except Exception as e:
             print(e)
             return JsonResponse({"error": "A"},status=500)
-        return JsonResponse({},status=201)
+        return JsonResponse({"id":newTask.id},status=201)
     
 @csrf_exempt 
 def updateTask(request, id):
@@ -130,10 +130,6 @@ def updateTask(request, id):
             data = json.loads(request.body)
         except json.JSONDecodeError:
             return HttpResponse("Invalid JSON")
-        name = data['taskName']
-        description=data["taskDescription"]
-        time=data["taskLimitTime"]
-        type=data["taskType"]
         oldTaskId=id
         token = request.COOKIES.get('token')
         if token == None:
@@ -150,25 +146,31 @@ def updateTask(request, id):
             response=HttpResponse()
             response.status_code=401
             return response
-        oldTask = Task.objects.filter(id=oldTaskId).first()
+        task = Task.objects.filter(id=oldTaskId).first()
         if oldTaskId == None:
             response=HttpResponse()
             response.status_code=401
             return response
-        if oldTask.user!=user:
+        if task.user!=user:
             response=HttpResponse()
             response.status_code=401
             return response
         try:
-            oldTask.title = name
-            oldTask.description=description
-            oldTask.end_date=time
-            oldTask.type=type
-            oldTask.save()
+            if "name" in data:
+                task.name=data["name"]
+            if "description" in data:
+                task.description=data["description"]
+            if "time" in data:
+                task.time=data["time"]
+            if "type" in data:
+                task.type=data["type"]
+            if "status" in data:
+                task.status = bool(data["status"])
+            task.save()
         except Exception as e:
             print(e)
             return JsonResponse({"error": "A"},status=500)
-        return JsonResponse({},status=201)
+        return JsonResponse({},status=200)
 @csrf_exempt 
 def deleteTask(request, id):
     if request.method == "DELETE":
@@ -206,7 +208,7 @@ def deleteTask(request, id):
             return JsonResponse({"error": "A"},status=500)
         return JsonResponse({},status=201)
 
-def listTask(request):
+def listTask(request,page= 1):
     if request.method == "GET":
         token = request.COOKIES.get('token')
         if token == None:
@@ -223,12 +225,41 @@ def listTask(request):
             response=HttpResponse()
             response.status_code=401
             return response
-        tasks = Task.objects.filter(user=user)
+        tasks = Task.objects.filter(user=user,).order_by('end_date')
+        tasks = tasks[(page-1)*10:page*10]
         tasksList = []
         for task in tasks:
-            tasksList.append({"id":task.id, "title":task.title, "description":task.description, "end_date":task.end_date, "type":task.type, "status":task.status})
-        return JsonResponse({"tasks":tasksList},status=200)
-    return 
+            tasksList.append({"id":task.id, "title":task.title, "end_date":task.end_date, "status":task.status})
+        return JsonResponse({"tasks":tasksList, "more":False},status=200)
+    return
+
+def detailTask(request, id):
+    if request.method == "GET":
+        token = request.COOKIES.get('token')
+        if token == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        user = User.objects.filter(username=dataUser['username']).first()
+        if user == None:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        task = Task.objects.filter(id=id).first()
+        if task == None:
+            response=HttpResponse()
+            response.status_code=404
+            return response
+        if task.user!=user:
+            response=HttpResponse()
+            response.status_code=401
+            return response
+        return JsonResponse({"id":task.id, "title":task.title, "description":task.description, "end_date":task.end_date, "status":task.status},status=200)
 
 def index(request):
     if request.method == "GET":
