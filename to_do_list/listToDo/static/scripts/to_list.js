@@ -1,6 +1,12 @@
 const listTasks = document.getElementById("colum-tasks");
 const inputFilter = document.getElementById("filter-tasks");
-const divInput = document.getElementById("div-input-search")
+const divInput = document.getElementById("div-input-search");
+
+//!DIV FOR INFO TASK!//
+const divInfoTask = document.getElementById("info-task");
+const divTaskNotSelect = document.getElementById("not-selected");
+const mainLoading = document.getElementById("main-loading");
+const modalAdd = document.getElementById("div-modal-add");
 
 var filter = "";
 var tasks = null;
@@ -16,15 +22,11 @@ async function chargeTasks() {
     });
 }
 
-function addTask() {
-  console.log("Agregando tarea");
-}
-
 function init() {
   inputFilter.addEventListener("input", filterTasks);
-  divInput.addEventListener("click", ()=>{
-    inputFilter.focus()
-  })
+  divInput.addEventListener("click", () => {
+    inputFilter.focus();
+  });
   chargeTasks().then(() => {
     setTimeout(() => {
       generateList();
@@ -46,7 +48,7 @@ function generateList() {
 }
 
 function createTask(nameTask, id, status) {
-  return `<div class="block-task task-id-${id}">
+  return `<div class="block-task task-id-${id}" onClick="showTaskInfo(${id})">
   ${
     status == true
       ? '<span class="material-symbols-rounded">check_circle</span>'
@@ -64,3 +66,53 @@ function filterTasks() {
 }
 
 init();
+
+//!UTILS!//
+function showInfoTask() {
+  divTaskNotSelect.style.display = "none";
+  mainLoading.style.display = "none";
+  divInfoTask.style.display = "flex";
+}
+
+function hideInfoTask() {
+  divTaskNotSelect.style.display = "flex";
+  mainLoading.style.display = "none";
+  divInfoTask.style.display = "flex";
+}
+
+function showLoading() {
+  divTaskNotSelect.style.display = "none";
+  mainLoading.style.display = "flex";
+  divInfoTask.style.display = "none";
+}
+
+function showModalAdd(){
+  modalAdd.style.display = "flex";
+}
+
+function hideModalAdd(){
+  modalAdd.style.display = "none";
+}
+
+//!LOGIC FOR INFO TASK!//
+
+const h3Title = document.getElementById("title-task");
+const divIcon = document.getElementById("icon-status");
+const limitTime = document.getElementById("limit-time");
+const description = document.getElementById("description-task");
+
+function showTaskInfo(id) {
+  console.log("Mostrando tarea con id: " + id);
+  //!Show loading
+  //!AQUI TENEMOS QUE CAMBIAR TODO LO QUE ESTAMOS MOSTRANDO
+  //!POR EL CONTENIDO DE LA TAREA QUE FUE SELECCIONADO
+}
+
+//!LOGIC FOR ADD TASK!//
+function saveTask() {
+  console.log("Enviando tarea");
+}
+
+function addTask() {
+  console.log("Agregando tarea");
+}

@@ -16,6 +16,39 @@ a {
   color: white;
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 60px;
+  aspect-ratio: 4;
+  --_g: no-repeat radial-gradient(circle closest-side, #ffffff 90%, #0000);
+  background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+  background-size: calc(100% / 3) 100%;
+  animation: l7 1s infinite linear;
+}
+@keyframes l7 {
+  33% {
+    background-size: calc(100% / 3) 0%, calc(100% / 3) 100%, calc(100% / 3) 100%;
+  }
+  50% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 0%, calc(100% / 3) 100%;
+  }
+  66% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 100%, calc(100% / 3) 0%;
+  }
+}
+
+main .main-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+main #main-loading {
+  display: none;
+}
+
 body {
   margin: 0;
   padding: 6px;
@@ -135,6 +168,15 @@ navbar .block-task p {
   font-weight: lighter;
 }
 
+.row-expanded {
+  display: flex;
+  width: 100%;
+}
+
+.space-betwen {
+  justify-content: space-between;
+}
+
 main {
   overflow-y: scroll;
   width: 100%;
@@ -153,21 +195,14 @@ main {
     }
   }
 
-  .row-expanded {
-    display: flex;
-    width: 100%;
-  }
-
-  .space-betwen {
-    justify-content: space-between;
-  }
-
   .info-task {
     display: none;
     flex-direction: column;
     gap: 16px;
     padding-inline: 90px;
     padding-block: 60px;
+    width: 100%;
+    height: 100%;
     h3 {
       font-size: 25px;
       font-weight: bold;
@@ -196,6 +231,74 @@ main {
   }
 }
 
-main::-webkit-scrollbar{
+main::-webkit-scrollbar {
   width: 15px;
+}
+
+/*CSS MODAL*/
+.div-modal {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+#div-modal-add {
+  display: none;
+}
+
+.modal {
+  width: 430px;
+  height: fit-content;
+  background-color: #10243d;
+  border-radius: 25px;
+  padding-inline: 51px;
+  padding-block: 46px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: white;
+}
+
+.modal h2 {
+  font-size: 25px;
+  font-weight: bold;
+  height: 50px;
+}
+
+.form-add {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  span {
+    font-size: 36px;
+    font-weight: bold;
+  }
+}
+
+.form-add input[type="text"] {
+  border: none;
+  background-color: #ffffff;
+  color: rgb(90, 90, 90);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.form-add input[type="text"].long-input {
+  width: 100%;
+  height: 200px;
+}
+
+.form-add input[type="date"] {
+  border: none;
+  background-color: #ffffff;
+  color: rgb(90, 90, 90);
+  border-radius: 20px;
+  padding: 10px;
 }
