@@ -28,9 +28,7 @@ function init() {
     inputFilter.focus();
   });
   chargeTasks().then(() => {
-    setTimeout(() => {
-      generateList();
-    }, 2000);
+    generateList();
   });
 }
 
@@ -86,11 +84,11 @@ function showLoading() {
   divInfoTask.style.display = "none";
 }
 
-function showModalAdd(){
+function showModalAdd() {
   modalAdd.style.display = "flex";
 }
 
-function hideModalAdd(){
+function hideModalAdd() {
   modalAdd.style.display = "none";
 }
 
@@ -109,10 +107,72 @@ function showTaskInfo(id) {
 }
 
 //!LOGIC FOR ADD TASK!//
+const formAddTask = document.getElementById("form-add-task");
+const buttonAddTask = document.getElementById("button-add-task");
+formAddTask.addEventListener("submit", saveTask);
+
 function saveTask() {
   console.log("Enviando tarea");
 }
 
 function addTask() {
-  console.log("Agregando tarea");
+  showModalAdd();
+}
+
+function closeModal() {
+  hideModalAdd();
+}
+
+function saveTask(event) {
+  event.preventDefault();
+  const data = new FormData(formAddTask, buttonAddTask);
+  const title = data.get("taskName");
+  const limit_time = data.get("taskLimitTime").toString();
+  const description = data.get("taskDescription");
+  if (title == "") {
+    alert("The title can't be empty");
+    return;
+  }
+  if (limit_time == "") {
+    alert("The limit time can't be empty");
+    return;
+  }
+  if (new Date(limit_time) < new Date()) {
+    alert("The limit time can't be less than the current date");
+    return;
+  }
+  if (description == "") {
+    alert("The description can't be empty");
+    return;
+  }
+
+  console.log(
+    "Title: " + title,
+    "Limit time: " + limit_time,
+    "Description: " + description
+  );
+
+  fetch("/task/create", {
+    method: "POST",
+    body: data,
+  }).then((response) => {
+    if (response.status === 201) {
+      return response.json().then((data) => {
+        alert("Task added successfully");
+        const task = {
+          id: data.id,
+          title: title,
+          limit_time: limit_time,
+          description: description,
+          status: false,
+        };
+        tasks.push(task);
+        generateList();
+        hideModalAdd();
+      });
+    } else {
+      alert("Error adding task");
+      return null;
+    }
+  });
 }

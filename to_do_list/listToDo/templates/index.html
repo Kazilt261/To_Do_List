@@ -80,21 +80,23 @@
         <div class="modal-content">
           <div class="row-expanded space-betwen">
             <h2 id="modal-tittle">Add Task</h2>
-            <span class="material-symbols-outlined" onclick="closeModal()">
+            <span class="material-symbols-outlined cursor-pointer" onclick="closeModal()">
               close
             </span>
           </div>
-          <form class="form-add">
-              <label for="task">Task:</label>
-              <input type="text" id="task" placeholder="Name..."/>
+          <form class="form-add" id="form-add-task">
+              <label for="task" >Task:</label>
+              <input type="text" id="task" placeholder="Name..." name="taskName"/>
+              <label for="type">Type:</label>
+              <input type="text" id="type" placeholder="Type..." name="taskType"/>
               <label for="limit-time">Limit time:</label>
-              <input type="date" id="limit-time" placeholder=""/>
+              <input type="date" id="limit-time" placeholder="" name="taskLimitTime"/>
               <label for="description">Description:</label>
-              <input type="text" class="long-input" id="description" placeholder="Description...">
-              <button class="elevate-button" onclick="saveTask()">Save</button>
+              <input type="text" class="long-input" id="description" placeholder="Description..." name="taskDescription">
+              <button class="elevate-button" id="button-add-task">Save</button>
           </form>
         </div>
-    </div>
+    </div></div>
   </body>
   <script src="{% static 'scripts/to_list.js' %}"></script>
 </html>
