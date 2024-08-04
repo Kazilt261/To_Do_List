@@ -101,12 +101,31 @@ const divIcon = document.getElementById("icon-status");
 const limitTime = document.getElementById("limit-time");
 const description = document.getElementById("description-task");
 
-function showTaskInfo(id) {
-  console.log("Mostrando tarea con id: " + id);
-  //!Show loading
-  //!AQUI TENEMOS QUE CAMBIAR TODO LO QUE ESTAMOS MOSTRANDO
-  //!POR EL CONTENIDO DE LA TAREA QUE FUE SELECCIONADO
-}
+function showTaskInfo(id) { 
+  showLoading();
+  console.log(tasks)
+  fetch(`task/detail/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  }).then((response) => {
+    if (response.status != 200) {
+      alert("Error:", error);
+    } else {
+    response.json().then((data) => {
+      if (h3Title) {
+        h3Title.textContent = data.title;
+      }
+      if (limitTime) {
+        limitTime.textContent = data.end_date;
+      }
+      if (description) {
+        description.textContent = data.description;
+      }
+      showInfoTask();
+    })};
+})}
 
 //!LOGIC FOR ADD TASK!//
 function saveTask() {
