@@ -7,96 +7,143 @@
       type="text/css"
       href="{% static 'css/index.css' %}"
     />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
   </head>
   <body>
     <navbar>
       <h2>ToDo List</h2>
       <button class="elevate-button" onclick="addTask()">Add Task</button>
-      <div class="row" id="div-input-search"><span class="material-symbols-outlined">
-        search
-        </span><input class="search-task" type="text" id="filter-tasks" placeholder="Task"></input></div>
+      <div class="row" id="div-input-search">
+        <span class="material-symbols-outlined"> search </span>
+        <input
+          class="search-task"
+          type="text"
+          id="filter-tasks"
+          placeholder="Task"
+        />
+      </div>
       <div class="colum-tasks" id="colum-tasks">
         <---! Tasks will be displayed here -->
       </div>
-      <div class="user"><div class="user-icon"><span class="material-symbols-outlined">
-        account_circle
-        </span></div>
-      <section id="user">
-        <div class="user-info">
-          <p id="username">{{username}}</p>
-          <p id="email">{{email}}</p>
+      <div class="user">
+        <div class="user-icon">
+          <span class="material-symbols-outlined"> account_circle </span>
         </div>
-      </section> </div>
+        <section id="user">
+          <div class="user-info">
+            <p id="username">{{username}}</p>
+            <p id="email">{{email}}</p>
+          </div>
+        </section>
+      </div>
     </navbar>
     <main>
       <section class="not-selected" id="not-selected">
-        <span class="material-symbols-rounded">
-          rocket_launch
-        </span>
+        <span class="material-symbols-rounded"> rocket_launch </span>
       </section>
       <section class="info-task" id="info-task">
         <div class="row-expanded space-betwen">
           <div class="row-fill">
             <h3 id="tittle-task">Task</h3>
             <div>
-              <span class="material-symbols-rounded">
-              edit
-              </span>
+              <span class="material-symbols-rounded"> edit </span>
             </div>
           </div>
           <div class="row-fill">
             <h3 id="date">status:</h3>
             <div id="icon-status">
-              <span class="material-symbols-rounded">
-                check_circle
-                </span>
+              <span class="material-symbols-rounded"> check_circle </span>
             </div>
           </div>
         </div>
         <div class="separator"></div>
-        <div class="row-fill color-white" >
+        <div class="row-fill color-white">
           <h5>Limit time:</h5>
-          <h5 id="limit-time">
-            00/00/0000
-          </h5>
+          <h5 id="limit-time">00/00/0000</h5>
         </div>
-        <div><h5 class="color-white">Description:</h5><p class="color-white" id="description-task">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed ipsum non ipsum pulvinar porttitor ac quis eros. Praesent malesuada hendrerit tortor non placerat. Sed quis pharetra erat. Nunc risus ex, pretium non leo eget, blandit commodo tortor. Vivamus lacinia justo vel neque mollis feugiat. Morbi posuere ipsum lacus, id auctor lorem convallis eu. Integer fermentum purus vitae turpis elementum hendrerit. Phasellus erat justo, euismod aliquam nisl a, euismod imperdiet velit. Nullam et dolor sagittis, porttitor nisl vel, euismod felis.
-        </p></div>
+        <div>
+          <h5 class="color-white">Description:</h5>
+          <p class="color-white" id="description-task">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
+            ipsum non ipsum pulvinar porttitor ac quis eros. Praesent malesuada
+            hendrerit tortor non placerat. Sed quis pharetra erat. Nunc risus
+            ex, pretium non leo eget, blandit commodo tortor. Vivamus lacinia
+            justo vel neque mollis feugiat. Morbi posuere ipsum lacus, id auctor
+            lorem convallis eu. Integer fermentum purus vitae turpis elementum
+            hendrerit. Phasellus erat justo, euismod aliquam nisl a, euismod
+            imperdiet velit. Nullam et dolor sagittis, porttitor nisl vel,
+            euismod felis.
+          </p>
+        </div>
       </section>
-      <section class="main-loading"><div class="loader" id="main-loading"></div></section>
+      <section class="main-loading">
+        <div class="loader" id="main-loading"></div>
+      </section>
     </main>
     <div class="div-modal" id="div-modal-add">
       <div class="modal" id="modal">
         <div class="modal-content">
           <div class="row-expanded space-betwen">
             <h2 id="modal-tittle">Add Task</h2>
-            <span class="material-symbols-outlined cursor-pointer" onclick="closeModal()">
+            <span
+              class="material-symbols-outlined cursor-pointer"
+              onclick="closeModal()"
+            >
               close
             </span>
           </div>
           <form class="form-add" id="form-add-task">
-              <label for="task" >Task:</label>
-              <input type="text" id="task" placeholder="Name..." name="taskName"/>
-              <label for="type">Type:</label>
-              <input type="text" id="type" placeholder="Type..." name="taskType"/>
-              <label for="limit-time">Limit time:</label>
-              <input type="date" id="limit-time" placeholder="" name="taskLimitTime"/>
-              <label for="description">Description:</label>
-              <input type="text" class="long-input" id="description" placeholder="Description..." name="taskDescription">
-              <button class="elevate-button" id="button-add-task">Save</button>
+            <label for="task">Task:</label>
+            <input
+              type="text"
+              id="task"
+              placeholder="Name..."
+              name="taskName"
+            />
+            <label for="type">Type:</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Type..."
+              name="taskType"
+            />
+            <label for="limit-time">Limit time:</label>
+            <input
+              type="date"
+              id="limit-time"
+              placeholder=""
+              name="taskLimitTime"
+            />
+            <label for="description">Description:</label>
+            <textarea
+              type="text"
+              class="long-input"
+              id="description"
+              placeholder="Description..."
+              name="taskDescription"
+            /></textarea>
+            <button class="elevate-button" id="button-add-task">Save</button>
           </form>
         </div>
-    </div></div>
+      </div>
+    </div>
   </body>
   <script src="{% static 'scripts/to_list.js' %}"></script>
 </html>

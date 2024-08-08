@@ -1,25 +1,27 @@
 {% extends "layouts/layout_reg_log.html" %} {% load static %} {% block head %}
 <title>Login</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/initSession.css' %}"
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/initSession.css' %}"
 />
 {% endblock head %} {% block form %}
-<form 
+<form
   id="form_login"
   onsubmit="submit_login(event)"
   method="post"
-  action="/users/register" 
+  action="/users/register"
 >
   {% csrf_token %}
   <h3>Login</h3>
   <label id="email_label">Email</label>
   <input type="text" name="email" placeholder="Email" />
   <label id="password_label">Password</label>
-  <input 
-    type="password" 
-    name="password" 
-    placeholder="Password" />
+  <input type="password" name="password" placeholder="Password" />
   <input type="submit" value="Login" />
-  <p>Don't have an account? <a href="/users/register" class="link">Register</a></p>
+  <p>
+    Don't have an account? <a href="/users/register" class="link">Register</a>
+  </p>
 </form>
 <script src="{% static 'scripts/login.js' %}"></script>
 {% endblock %}

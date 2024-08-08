@@ -46,7 +46,7 @@ function generateList() {
 }
 
 function createTask(nameTask, id, status) {
-  return `<div class="block-task task-id-${id}" onClick="showTaskInfo(${id})">
+  return `<div class="block-task task-id-${id} row-animation-add" onClick="showTaskInfo(${id})">
   ${
     status == true
       ? '<span class="material-symbols-rounded">check_circle</span>'
@@ -99,31 +99,32 @@ const divIcon = document.getElementById("icon-status");
 const limitTime = document.getElementById("limit-time");
 const description = document.getElementById("description-task");
 
-function showTaskInfo(id) { 
+function showTaskInfo(id) {
   showLoading();
-  console.log(tasks)
   fetch(`task/detail/${id}`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
   }).then((response) => {
     if (response.status != 200) {
       alert("Error:", error);
     } else {
-    response.json().then((data) => {
-      if (h3Title) {
-        h3Title.textContent = data.title;
-      }
-      if (limitTime) {
-        limitTime.textContent = data.end_date;
-      }
-      if (description) {
-        description.textContent = data.description;
-      }
-      showInfoTask();
-    })};
-})}
+      response.json().then((data) => {
+        if (h3Title) {
+          h3Title.textContent = data.title;
+        }
+        if (limitTime) {
+          limitTime.textContent = data.end_date;
+        }
+        if (description) {
+          description.textContent = data.description;
+        }
+        showInfoTask();
+      });
+    }
+  });
+}
 
 //!LOGIC FOR ADD TASK!//
 const formAddTask = document.getElementById("form-add-task");
@@ -181,12 +182,26 @@ function saveTask(event) {
         const task = {
           id: data.id,
           title: title,
-          limit_time: limit_time,
+          end_date: limit_time,
           description: description,
           status: false,
         };
         tasks.push(task);
-        generateList();
+        tasks.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
+        console.log(tasks);
+        //Put the task in the list but ordered by date
+        const listTasksShowed = Array.from(listTasks.children);
+        if (listTasksShowed.length == 0) {
+          listTasks.innerHTML = createTask(task.title, task.id, task.status);
+          hideModalAdd();
+          return;
+        }
+
+        const newdiv = document.createElement("div");
+        newdiv.innerHTML = createTask(task.title, task.id, task.status);
+
+        listTasks.appendChild(newdiv);
+
         hideModalAdd();
       });
     } else {

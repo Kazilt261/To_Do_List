@@ -226,7 +226,6 @@ def listTask(request,page= 1):
             response.status_code=401
             return response
         tasks = Task.objects.filter(user=user,).order_by('end_date')
-        tasks = tasks[(page-1)*10:page*10]
         tasksList = []
         for task in tasks:
             tasksList.append({"id":task.id, "title":task.title, "end_date":task.end_date, "status":task.status})
