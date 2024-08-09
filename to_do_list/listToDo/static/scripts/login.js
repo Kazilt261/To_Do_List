@@ -22,12 +22,22 @@ function submit_login(event) {
         body: data,
       })
         .then((response) => {
-          if (response.status === 200) {
+          if (response.status === 201) {
             window.location.href = "/";
           } else {
             response.json().then((data) => {
-              if (data.error === "username") {
-                document.getElementById("user_label").classList.add("error");
+              console.log(data)
+              div_error = document.getElementById("error-div");
+              div_error.innerHTML = `<p>${data.message}</p>`;
+              if (data.error === "email_label") {
+                document.getElementById("email_label").classList.add("error");
+                document.getElementById("email_input").classList.add("error");
+                document.getElementById("email_input").focus();
+              }
+              if (data.error === "password") {
+                document.getElementById("password_label").classList.add("error");
+                document.getElementById("password_input").classList.add("error");
+                document.getElementById("password_input").focus();
               }
             });
           }

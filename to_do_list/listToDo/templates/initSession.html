@@ -15,13 +15,21 @@
   {% csrf_token %}
   <h3>Login</h3>
   <label id="email_label">Email</label>
-  <input type="text" name="email" placeholder="Email" />
+  <input 
+    id="email_input"
+    type="text"  
+    name="email" 
+    placeholder="Email" 
+  />
   <label id="password_label">Password</label>
-  <input type="password" name="password" placeholder="Password" />
+  <input 
+    id="password_input"
+    type="password" 
+    name="password" 
+    placeholder="Password" />
   <input type="submit" value="Login" />
-  <p>
-    Don't have an account? <a href="/users/register" class="link">Register</a>
-  </p>
+  <p>Don't have an account? <a href="/users/register" class="link">Register</a></p>
+  <div id="error-div"></div>
 </form>
 <script src="{% static 'scripts/login.js' %}"></script>
 {% endblock %}
