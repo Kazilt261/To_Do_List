@@ -53,9 +53,7 @@ function createTask(nameTask, id, status) {
       ? '<span class="material-symbols-rounded">check_circle</span>'
       : '<span class="material-symbols-rounded">radio_button_unchecked</span>'
   }
-    <div class ="info-task">
-        <h4>${nameTask}</p>
-    </div>
+      <h4 class="name-task">${nameTask}</h4>
     <div class="delete">
         <span class="material-symbols-outlined">delete</span>
     </div>
@@ -146,7 +144,6 @@ formAddTask.addEventListener("submit", saveTask);
 const formUpdateTask = document.getElementById("form-update-task");
 const buttonUpdateTask = document.getElementById("button-update-task");
 formUpdateTask.updateEventListener("submit", saveTask);
-
 
 function saveTask() {
   console.log("Enviando tarea");

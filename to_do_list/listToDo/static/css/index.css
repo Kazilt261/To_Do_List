@@ -113,6 +113,7 @@ navbar .colum-tasks {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 navbar .colum-tasks::-webkit-scrollbar {
@@ -178,6 +179,17 @@ navbar .block-task p {
   justify-content: space-between;
 }
 
+h4.name-task {
+  width: 100%;
+}
+
+.name-task {
+  font-size: 20px;
+  font-weight: bold;
+  width: 100px;
+  overflow: hidden;
+}
+
 main {
   overflow-y: scroll;
   width: 100%;
@@ -197,7 +209,7 @@ main {
   }
 
   .info-task {
-    display: none;
+    width: 100%;
     flex-direction: column;
     gap: 16px;
     padding-inline: 90px;
@@ -318,18 +330,17 @@ main::-webkit-scrollbar {
   cursor: pointer;
 }
 
-@keyframes rowIn{
-  from{
+@keyframes rowIn {
+  from {
     transform: translateY(-100px);
     opacity: 0;
   }
-  to{
+  to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
-
-.row-animation-add{
+.row-animation-add {
   animation: rowIn 0.3 ease-in-out;
 }
