@@ -210,3 +210,24 @@ function saveTask(event) {
     }
   });
 }
+
+//!LOGIC FOR POPUP USER!//
+const buttonUser = document.getElementById("button-user");
+const popupUser = document.getElementById("popup-user");
+
+var isOpenPopup = false;
+
+buttonUser.addEventListener("click", () => {
+  if (isOpenPopup) {
+    closePopupUser();
+    return;
+  } else {
+    popupUser.style.display = "block";
+    isOpenPopup = true;
+  }
+});
+
+function closePopupUser() {
+  popupUser.style.display = "none";
+  isOpenPopup = false;
+}

@@ -42,17 +42,26 @@
       <div class="colum-tasks" id="colum-tasks">
         <---! Tasks will be displayed here -->
       </div>
-      <div class="user">
-        <div class="user-icon">
-          <span class="material-symbols-outlined"> account_circle </span>
-        </div>
         <section id="user">
-          <div class="user-info">
-            <p id="username">{{username}}</p>
-            <p id="email">{{email}}</p>
+          <div class="user" id="button-user">
+            <div class="user-icon">
+              <span class="material-symbols-outlined"> account_circle </span>
+            </div>
+            <div class="user-info">
+              <p id="username">{{username}}</p>
+              <p id="email">{{email}}</p>
+            </div>
+          </div>
+          <div class="popup closed" id="popup-user">
+            <div class="popup-item">
+              <a href="">Profile</a>
+            </div>
+            <div class="popup-item">
+              <a href="">Log out</a>
+            </div>
           </div>
         </section>
-      </div>
+      
     </navbar>
     <main>
       <section class="not-selected" id="not-selected">

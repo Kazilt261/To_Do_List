@@ -134,7 +134,12 @@ div.user {
   padding: 15px;
 }
 
-navbar section#user {
+navbar section {
+  width: 100%;
+  display: flex;
+}
+
+navbar section #user {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,12 +147,12 @@ navbar section#user {
   padding: 10px;
 }
 
-navbar section#user #username {
+navbar section #user #username {
   font-size: 16px;
   font-weight: bold;
 }
 
-navbar section#user #email {
+navbar section #user #email {
   font-size: 10px;
   font-weight: bold;
 }
@@ -313,18 +318,53 @@ main::-webkit-scrollbar {
   cursor: pointer;
 }
 
-@keyframes rowIn{
-  from{
+@keyframes rowIn {
+  from {
     transform: translateY(-100px);
     opacity: 0;
   }
-  to{
+  to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
-
-.row-animation-add{
+.row-animation-add {
   animation: rowIn 0.3 ease-in-out;
+}
+
+section#user {
+  display: flex;
+  position: relative;
+  gap: 10px;
+  align-items: center;
+}
+
+.popup {
+  position: absolute;
+  display: none;
+  background-color: #d55852;
+  justify-content: center;
+  align-items: center;
+  right: -120px;
+  bottom: 0;
+  border-radius: 20px;
+  box-shadow: 10px 10px 100px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.popup-item {
+  display: flex;
+  padding-inline: 20px;
+  padding-block: 10px;
+  transition: background-color 0.3s;
+}
+
+.popup-item:hover {
+  background-color: #c44c47;
+}
+
+.popup-item a {
+  color: white;
+  text-decoration: none;
 }
