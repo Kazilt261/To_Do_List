@@ -7,6 +7,7 @@ const divInfoTask = document.getElementById("info-task");
 const divTaskNotSelect = document.getElementById("not-selected");
 const mainLoading = document.getElementById("main-loading");
 const modalAdd = document.getElementById("div-modal-add");
+const modalUpdate = document.getElementById("div-modal-update");
 
 var filter = "";
 var tasks = null;
@@ -55,6 +56,9 @@ function createTask(nameTask, id, status) {
     <div class ="info-task">
         <h4>${nameTask}</p>
     </div>
+    <div class="delete">
+        <span class="material-symbols-outlined">delete</span>
+    </div>
   </div>`;
 }
 
@@ -90,6 +94,14 @@ function showModalAdd() {
 
 function hideModalAdd() {
   modalAdd.style.display = "none";
+}
+
+function showModalUpdate() {
+  modalUpdate.style.display = "flex";
+}
+
+function hideModalUpdate() {
+  modalUpdate.style.display = "none";
 }
 
 //!LOGIC FOR INFO TASK!//
@@ -131,6 +143,11 @@ const formAddTask = document.getElementById("form-add-task");
 const buttonAddTask = document.getElementById("button-add-task");
 formAddTask.addEventListener("submit", saveTask);
 
+const formUpdateTask = document.getElementById("form-update-task");
+const buttonUpdateTask = document.getElementById("button-update-task");
+formUpdateTask.updateEventListener("submit", saveTask);
+
+
 function saveTask() {
   console.log("Enviando tarea");
 }
@@ -141,6 +158,14 @@ function addTask() {
 
 function closeModal() {
   hideModalAdd();
+}
+
+function updateTask() {
+  showModalUpdate();
+}
+
+function closeModalUpdate() {
+  hideModalUpdate();
 }
 
 function saveTask(event) {

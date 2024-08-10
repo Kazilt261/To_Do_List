@@ -25,6 +25,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
+    <link 
+      rel="stylesheet" 
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" 
+    />
   </head>
   <body>
     <navbar>
@@ -140,6 +144,53 @@
               name="taskDescription"
             /></textarea>
             <button class="elevate-button" id="button-add-task">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="div-modal" id="div-modal-update">
+      <div class="modal" id="modal">
+        <div class="modal-content">
+          <div class="row-expanded space-betwen">
+            <h2 id="modal-tittle">Update Task</h2>
+            <span
+              class="material-symbols-outlined cursor-pointer"
+              onclick="closeModal()"
+            >
+              close
+            </span>
+          </div>
+          <form class="form-update" id="form-update-task">
+            <label for="task">Task:</label>
+            <input
+              type="text"
+              id="task"
+              placeholder="Name..."
+              name="taskName"
+            />
+            <label for="type">Type:</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Type..."
+              name="taskType"
+            />
+            <label for="limit-time">Limit time:</label>
+            <input
+              type="date"
+              id="limit-time"
+              placeholder=""
+              name="taskLimitTime"
+            />
+            <label for="description">Description:</label>
+            <textarea
+              type="text"
+              class="long-input"
+              id="description"
+              placeholder="Description..."
+              name="taskDescription"
+            /></textarea>
+            <button class="elevate-button" id="button-update-task">Save</button>
           </form>
         </div>
       </div>

@@ -154,6 +154,7 @@ navbar section#user #email {
 
 navbar .block-task {
   display: flex;
+  width: 100%;
   gap: 10px;
   padding: 10px;
 }
@@ -249,6 +250,10 @@ main::-webkit-scrollbar {
 }
 
 #div-modal-add {
+  display: none;
+}
+
+#div-modal-update {
   display: none;
 }
 

@@ -22,7 +22,7 @@ function submit_login(event) {
         body: data,
       })
         .then((response) => {
-          if (response.status === 201) {
+          if (response.status === 200) {
             window.location.href = "/";
           } else {
             response.json().then((data) => {
