@@ -27,7 +27,14 @@
     />
   </head>
   <body>
-    <navbar>
+
+    <div class="floating-button" id="button-navbar">
+      <span class="material-symbols-rounded">
+        expand_circle_right
+        </span>
+    </div>
+
+    <navbar class="closed" id="navbar-left">
       <h2>ToDo List</h2>
       <button class="elevate-button" onclick="addTask()">Add Task</button>
       <div class="row" id="div-input-search">
@@ -52,12 +59,14 @@
               <p id="email">{{email}}</p>
             </div>
           </div>
-          <div class="popup closed" id="popup-user">
-            <div class="popup-item">
-              <a href="">Profile</a>
-            </div>
-            <div class="popup-item">
-              <a href="/users/logout">Log out</a>
+          <div style="position: relative;">
+            <div class="popup closed" id="popup-user">
+              <div class="popup-item">
+                <a href="/users/profile">Profile</a>
+              </div>
+              <div class="popup-item">
+                <a href="/users/logout">Log out</a>
+              </div>
             </div>
           </div>
         </section>

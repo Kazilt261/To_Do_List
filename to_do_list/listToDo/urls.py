@@ -14,4 +14,5 @@ urlpatterns = [
     path("task/list/<int:page>",views.listTask, name="List"),
     path("task/list",views.listTask, name="List"),
     path("task/detail/<int:id>",views.detailTask, name="List"),
+    path("users/profile",views.profile, name="profile-user"),
 ]
