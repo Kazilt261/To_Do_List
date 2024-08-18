@@ -6,7 +6,7 @@ const divInput = document.getElementById("div-input-search");
 const divInfoTask = document.getElementById("info-task");
 const divTaskNotSelect = document.getElementById("not-selected");
 const mainLoading = document.getElementById("main-loading");
-const modalAdd = document.getElementById("div-modal-add");
+const modUpdate = document.getElementById("div-modal-add");
 const modalUpdate = document.getElementById("div-modal-update");
 
 var filter = "";
@@ -141,13 +141,7 @@ const formAddTask = document.getElementById("form-add-task");
 const buttonAddTask = document.getElementById("button-add-task");
 formAddTask.addEventListener("submit", saveTask);
 
-const formUpdateTask = document.getElementById("form-update-task");
-const buttonUpdateTask = document.getElementById("button-update-task");
-formUpdateTask.updateEventListener("submit", saveTask);
 
-function saveTask() {
-  console.log("Enviando tarea");
-}
 
 function addTask() {
   showModalAdd();
@@ -155,6 +149,7 @@ function addTask() {
 
 function closeModal() {
   hideModalAdd();
+  hideModalUpdate();  
 }
 
 function updateTask() {
@@ -228,6 +223,77 @@ function saveTask(event) {
       });
     } else {
       alert("Error adding task");
+      return null;
+    }
+  });
+}
+
+const formUpdateTask = document.getElementById("form-update-task");
+const buttonUpdateTask = document.getElementById("button-update-task");
+formUpdateTask.updateEventListener("submit", saveUpdateTask);
+
+function saveUpdateTask(event){
+  event.preventDefault();
+  const data = new FormData(formUpdateTask, buttonUpdateTask);
+  const title = data.get("taskName");
+  const limit_time = data.get("taskLimitTime").toString();
+  const description = data.get("taskDescription");
+  if (title == "") {
+    alert("The title can't be empty");
+    return;
+  }
+  if (limit_time == "") {
+    alert("The limit time can't be empty");
+    return;
+  }
+  if (new Date(limit_time) < new Date()) {
+    alert("The limit time can't be less than the current date");
+    return;
+  }
+  if (description == "") {
+    alert("The description can't be empty");
+    return;
+  }
+
+  console.log(
+    "Title: " + title,
+    "Limit time: " + limit_time,
+    "Description: " + description
+  );
+
+  fetch(`task/update/${id}`, {
+    method: "PATCH",
+    body: data,
+  }).then((response) => {
+    if (response.status === 201) {
+      return response.json().then((data) => {
+        alert("Task updated successfully");
+        const task = {
+          id: data.id,
+          title: title,
+          end_date: limit_time,
+          description: description,
+          status: false,
+        };
+        tasks.push(task);
+        tasks.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
+        console.log(tasks);
+        const listTasksShowed = Array.from(listTasks.children);
+        if (listTasksShowed.length == 0) {
+          listTasks.innerHTML = updateTask(task.title, task.id, task.status);
+          hideModalUpdate();
+          return;
+        }
+
+        const newdiv = document.createElement("div");
+        newdiv.innerHTML = updateTask(task.title, task.id, task.status);
+
+        listTasks.appendChild(newdiv);
+
+        hideModalUpdate();
+      });
+    } else {
+      alert("Error updating task");
       return null;
     }
   });
