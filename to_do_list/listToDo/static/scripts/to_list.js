@@ -6,8 +6,8 @@ const divInput = document.getElementById("div-input-search");
 const divInfoTask = document.getElementById("info-task");
 const divTaskNotSelect = document.getElementById("not-selected");
 const mainLoading = document.getElementById("main-loading");
-const modUpdate = document.getElementById("div-modal-add");
 const modalUpdate = document.getElementById("div-modal-update");
+const modalAdd = document.getElementById("div-modal-add");
 
 var filter = "";
 var tasks = null;
@@ -94,13 +94,26 @@ function hideModalAdd() {
   modalAdd.style.display = "none";
 }
 
+const taskNameUpdate = document.getElementById("task-update");
+const taskTypeUpdate = document.getElementById("type-update");
+const taskLimitTimeUpdate = document.getElementById("limit-time-update");
+const descriptionUpdate = document.getElementById("description-update");
+
 function showModalUpdate() {
   modalUpdate.style.display = "flex";
+  console.log(taskHowever);
+  taskNameUpdate.value = taskHowever.title;
+  taskTypeUpdate.value = taskHowever.end_date;
+  descriptionUpdate.value = taskHowever.description;
+  taskLimitTimeUpdate.value = taskHowever.end_date;
 }
 
 function hideModalUpdate() {
   modalUpdate.style.display = "none";
 }
+//! TASK SELECTED!//
+var taskHowever = null;
+var idTask = null;
 
 //!LOGIC FOR INFO TASK!//
 
@@ -110,6 +123,7 @@ const limitTime = document.getElementById("limit-time");
 const description = document.getElementById("description-task");
 
 function showTaskInfo(id) {
+  idTask = id;
   showLoading();
   fetch(`task/detail/${id}`, {
     method: "GET",
@@ -121,6 +135,7 @@ function showTaskInfo(id) {
       alert("Error:", error);
     } else {
       response.json().then((data) => {
+        taskHowever = data;
         if (h3Title) {
           h3Title.textContent = data.title;
         }
@@ -141,15 +156,13 @@ const formAddTask = document.getElementById("form-add-task");
 const buttonAddTask = document.getElementById("button-add-task");
 formAddTask.addEventListener("submit", saveTask);
 
-
-
 function addTask() {
   showModalAdd();
 }
 
 function closeModal() {
   hideModalAdd();
-  hideModalUpdate();  
+  hideModalUpdate();
 }
 
 function updateTask() {
@@ -228,11 +241,13 @@ function saveTask(event) {
   });
 }
 
+//! UPDATE TASK!//
+
 const formUpdateTask = document.getElementById("form-update-task");
 const buttonUpdateTask = document.getElementById("button-update-task");
-formUpdateTask.updateEventListener("submit", saveUpdateTask);
+formUpdateTask.addEventListener("submit", saveUpdateTask);
 
-function saveUpdateTask(event){
+function saveUpdateTask(event) {
   event.preventDefault();
   const data = new FormData(formUpdateTask, buttonUpdateTask);
   const title = data.get("taskName");
@@ -261,7 +276,7 @@ function saveUpdateTask(event){
     "Description: " + description
   );
 
-  fetch(`task/update/${id}`, {
+  fetch(`task/update/${idTask}`, {
     method: "PATCH",
     body: data,
   }).then((response) => {
