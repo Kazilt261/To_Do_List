@@ -170,7 +170,7 @@ def updateTask(request, id):
         except Exception as e:
             print(e)
             return JsonResponse({"error": "A"},status=500)
-        return JsonResponse({},status=200)
+        return JsonResponse({},status=202)
 @csrf_exempt 
 def deleteTask(request, id):
     if request.method == "DELETE":

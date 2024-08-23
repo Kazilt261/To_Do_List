@@ -206,6 +206,7 @@ function saveTask(event) {
     method: "POST",
     body: data,
   }).then((response) => {
+    console.log(response)
     if (response.status === 201) {
       return response.json().then((data) => {
         alert("Task added successfully");
@@ -280,7 +281,8 @@ function saveUpdateTask(event) {
     method: "PATCH",
     body: data,
   }).then((response) => {
-    if (response.status === 201) {
+    console.log(response.status)
+    if (response.status === 200) {
       return response.json().then((data) => {
         alert("Task updated successfully");
         const task = {
