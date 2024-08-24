@@ -126,10 +126,7 @@ def createTask(request):
 @csrf_exempt 
 def updateTask(request, id):
     if request.method == "PATCH":
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return HttpResponse("Invalid JSON")
+        data = json.loads(request.body)
         oldTaskId=id
         token = request.COOKIES.get('token')
         if token == None:
@@ -147,6 +144,7 @@ def updateTask(request, id):
             response.status_code=401
             return response
         task = Task.objects.filter(id=oldTaskId).first()
+        print(task.description)
         if oldTaskId == None:
             response=HttpResponse()
             response.status_code=401
@@ -157,19 +155,19 @@ def updateTask(request, id):
             return response
         try:
             if "name" in data:
-                task.name=data["name"]
+                task.title=data["name"]
             if "description" in data:
                 task.description=data["description"]
             if "time" in data:
-                task.time=data["time"]
+                task.end_date=data["time"]
             if "type" in data:
                 task.type=data["type"]
             if "status" in data:
                 task.status = bool(data["status"])
+
             task.save()
         except Exception as e:
-            print(e)
-            return JsonResponse({"error": "A"},status=500)
+            return JsonResponse({"error": e},status=500)
         return JsonResponse({},status=202)
 @csrf_exempt 
 def deleteTask(request, id):

@@ -162,7 +162,6 @@ function addTask() {
 
 function closeModal() {
   hideModalAdd();
-  hideModalUpdate();
 }
 
 function updateTask() {
@@ -206,7 +205,7 @@ function saveTask(event) {
     method: "POST",
     body: data,
   }).then((response) => {
-    console.log(response)
+    console.log(response);
     if (response.status === 201) {
       return response.json().then((data) => {
         alert("Task added successfully");
@@ -279,10 +278,14 @@ function saveUpdateTask(event) {
 
   fetch(`task/update/${idTask}`, {
     method: "PATCH",
-    body: data,
+    body: JSON.stringify({
+      name: title,
+      time: limit_time,
+      description: description,
+    }),
   }).then((response) => {
-    console.log(response.status)
-    if (response.status === 200) {
+    console.log(response.status);
+    if (response.status === 202) {
       return response.json().then((data) => {
         alert("Task updated successfully");
         const task = {

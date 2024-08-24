@@ -330,6 +330,32 @@ main::-webkit-scrollbar {
   cursor: pointer;
 }
 
+#div-modal-update #form-update-task {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#div-modal-update #form-update-task input[type="text"],
+#div-modal-update #form-update-task input[type="date"] {
+  border: none;
+  background-color: #ffffff;
+  color: rgb(90, 90, 90);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+#div-modal-update #form-update-task textarea{
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+} 
+
 @keyframes rowIn {
   from {
     transform: translateY(-100px);
