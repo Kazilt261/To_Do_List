@@ -54,10 +54,10 @@ function createTask(nameTask, id, status) {
       : '<span class="material-symbols-rounded">radio_button_unchecked</span>'
   }
       <h4 class="name-task">${nameTask}</h4>
-    <div class="delete">
-        <span class="material-symbols-outlined">delete</span>
+    <div>
+        <span class="material-symbols-outlined" onclick="saveDeleteTask(${id})">delete</span>
     </div>
-  </div>`;
+`;
 }
 
 function filterTasks() {
@@ -170,6 +170,14 @@ function updateTask() {
 
 function closeModalUpdate() {
   hideModalUpdate();
+}
+
+function deleteTask() {
+  showModalDelete();
+}
+
+function closeModalDelete() {
+  hideModalDelete();
 }
 
 function saveTask(event) {
@@ -309,12 +317,45 @@ function saveUpdateTask(event) {
         newdiv.innerHTML = updateTask(task.title, task.id, task.status);
 
         listTasks.appendChild(newdiv);
-
         hideModalUpdate();
+        localStorage.setItem('lastUpdatedTaskId', idTask);
+        location.reload();
       });
     } else {
       alert("Error updating task");
       return null;
     }
   });
+}
+
+window.addEventListener('load', () => {
+  const lastUpdatedTaskId = localStorage.getItem('lastUpdatedTaskId');
+  if (lastUpdatedTaskId) {
+    showTaskInfo(lastUpdatedTaskId);
+    localStorage.removeItem('lastUpdatedTaskId');
+  }
+});
+
+function saveDeleteTask(id) {
+  const userConfirmed = confirm("Are you sure you want to delete this task?");
+  if (userConfirmed) {
+    fetch(`/task/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log(response.status)
+      if (response.status === 201) {
+        alert("Task deleted successfully!");
+        tasks = tasks.filter(task => task.id !== id);
+        location.reload();
+      } else {
+        alert("Error deleting task");
+      }
+    }).catch((error) => {
+      console.error('Error:', error);
+      alert("An error occurred while deleting the task.");
+    });
+  }
 }

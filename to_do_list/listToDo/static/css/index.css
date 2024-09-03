@@ -269,6 +269,10 @@ main::-webkit-scrollbar {
   display: none;
 }
 
+#div-modal-delete {
+  display: none;
+}
+
 .modal {
   width: 430px;
   height: fit-content;
