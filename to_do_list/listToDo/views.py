@@ -274,3 +274,20 @@ def index(request):
             return response
         
         return render(request, 'index.html',{'username': user.username, 'email': user.email})
+    
+def profile(request):
+    if request.method == "GET":
+        token = request.COOKIES.get('token')
+        if token == None:
+            return redirect('/users/login')
+        dataUser = decodeJWT(token)
+        if "error" in dataUser:
+            request.session['token'] = None
+            return redirect('/users/login')
+        user = User.objects.filter(username=dataUser['username'],email=dataUser["email"], hash_password_email=dataUser["hashPassword"]).first()
+        if user == None:
+            response = redirect('/users/login')
+            response.delete_cookie('token')
+            return response
+        return render(request, 'profile.html',{'username': user.username, 'email': user.email})
+    

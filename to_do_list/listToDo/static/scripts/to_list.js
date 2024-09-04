@@ -359,3 +359,52 @@ function saveDeleteTask(id) {
     });
   }
 }
+//!LOGIC FOR POPUP USER!//
+const buttonUser = document.getElementById("button-user");
+const popupUser = document.getElementById("popup-user");
+
+var isOpenPopup = false;
+
+buttonUser.addEventListener("click", () => {
+  if (isOpenPopup) {
+    closePopupUser();
+    return;
+  } else {
+    popupUser.style.display = "block";
+    isOpenPopup = true;
+  }
+});
+
+function closePopupUser() {
+  popupUser.style.display = "none";
+  isOpenPopup = false;
+}
+
+//!LOGIC FOR NAVBAR MOVILE!//
+const navbar = document.getElementById("navbar-left");
+
+function openNavbar() {
+  if (navbar.className == "") {
+    return;
+  }
+  navbar.className = "";
+}
+
+function closeNavbar() {
+  if (navbar.className == "closed") {
+    return;
+  }
+  navbar.className = "closed";
+}
+
+const buttonOpenNavbar = document.getElementById("button-navbar");
+
+buttonOpenNavbar.addEventListener("click", () => {
+  openNavbar();
+});
+
+document.addEventListener("click", (event) => {
+  if (!navbar.contains(event.target) && !buttonOpenNavbar.contains(event.target)) {
+    closeNavbar();
+  }
+});

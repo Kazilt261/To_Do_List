@@ -31,7 +31,14 @@
     />
   </head>
   <body>
-    <navbar>
+
+    <div class="floating-button" id="button-navbar">
+      <span class="material-symbols-rounded">
+        expand_circle_right
+        </span>
+    </div>
+
+    <navbar class="closed" id="navbar-left">
       <h2>ToDo List</h2>
       <button class="elevate-button" onclick="addTask()">Add Task</button>
       <div class="row" id="div-input-search">
@@ -46,17 +53,28 @@
       <div class="colum-tasks" id="colum-tasks">
         <---! Tasks will be displayed here -->
       </div>
-      <div class="user">
-        <div class="user-icon">
-          <span class="material-symbols-outlined"> account_circle </span>
-        </div>
         <section id="user">
-          <div class="user-info">
-            <p id="username">{{username}}</p>
-            <p id="email">{{email}}</p>
+          <div class="user" id="button-user">
+            <div class="user-icon">
+              <span class="material-symbols-outlined"> account_circle </span>
+            </div>
+            <div class="user-info">
+              <p id="username">{{username}}</p>
+              <p id="email">{{email}}</p>
+            </div>
+          </div>
+          <div style="position: relative;">
+            <div class="popup closed" id="popup-user">
+              <div class="popup-item">
+                <a href="/users/profile">Profile</a>
+              </div>
+              <div class="popup-item">
+                <a href="/users/logout">Log out</a>
+              </div>
+            </div>
           </div>
         </section>
-      </div>
+      
     </navbar>
     <main>
       <section class="not-selected" id="not-selected">
