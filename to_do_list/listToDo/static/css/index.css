@@ -50,6 +50,17 @@ main .loader {
 
 main #main-loading {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+main .main-loading{
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 body {

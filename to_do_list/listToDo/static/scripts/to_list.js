@@ -12,14 +12,11 @@ const modalAdd = document.getElementById("div-modal-add");
 var filter = "";
 var tasks = null;
 
-console.log("Hola mundo");
-
 async function chargeTasks() {
   return fetch("/task/list")
     .then((response) => response.json())
     .then((data) => {
       tasks = data.tasks;
-      console.log(tasks);
     });
 }
 
@@ -35,7 +32,6 @@ function init() {
 
 function generateList() {
   if (listTasks == null) {
-    console.log("No se encontro el elemento");
     return;
   }
   listTasks.innerHTML = "";
@@ -101,7 +97,6 @@ const descriptionUpdate = document.getElementById("description-update");
 
 function showModalUpdate() {
   modalUpdate.style.display = "flex";
-  console.log(taskHowever);
   taskNameUpdate.value = taskHowever.title;
   taskTypeUpdate.value = taskHowever.end_date;
   descriptionUpdate.value = taskHowever.description;
@@ -203,17 +198,10 @@ function saveTask(event) {
     return;
   }
 
-  console.log(
-    "Title: " + title,
-    "Limit time: " + limit_time,
-    "Description: " + description
-  );
-
   fetch("/task/create", {
     method: "POST",
     body: data,
   }).then((response) => {
-    console.log(response);
     if (response.status === 201) {
       return response.json().then((data) => {
         alert("Task added successfully");
@@ -226,7 +214,6 @@ function saveTask(event) {
         };
         tasks.push(task);
         tasks.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
-        console.log(tasks);
         //Put the task in the list but ordered by date
         const listTasksShowed = Array.from(listTasks.children);
         if (listTasksShowed.length == 0) {
@@ -278,12 +265,6 @@ function saveUpdateTask(event) {
     return;
   }
 
-  console.log(
-    "Title: " + title,
-    "Limit time: " + limit_time,
-    "Description: " + description
-  );
-
   fetch(`task/update/${idTask}`, {
     method: "PATCH",
     body: JSON.stringify({
@@ -292,7 +273,6 @@ function saveUpdateTask(event) {
       description: description,
     }),
   }).then((response) => {
-    console.log(response.status);
     if (response.status === 202) {
       return response.json().then((data) => {
         alert("Task updated successfully");
@@ -305,7 +285,6 @@ function saveUpdateTask(event) {
         };
         tasks.push(task);
         tasks.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
-        console.log(tasks);
         const listTasksShowed = Array.from(listTasks.children);
         if (listTasksShowed.length == 0) {
           listTasks.innerHTML = updateTask(task.title, task.id, task.status);
@@ -345,7 +324,6 @@ function saveDeleteTask(id) {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      console.log(response.status)
       if (response.status === 201) {
         alert("Task deleted successfully!");
         tasks = tasks.filter(task => task.id !== id);
