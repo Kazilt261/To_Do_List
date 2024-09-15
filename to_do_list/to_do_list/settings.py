@@ -89,7 +89,8 @@ DATABASES = {
     }
 }
 
-
+# settings.py
+FERNET_KEY = b'PzKpXJeQ9vI4cZpXqZlIS1kRoKDPGv4bq3flDdEpclA='
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
